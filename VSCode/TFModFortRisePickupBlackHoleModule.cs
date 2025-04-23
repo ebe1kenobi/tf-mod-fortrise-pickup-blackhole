@@ -16,7 +16,7 @@ namespace TFModFortRisePickupBlackHole
     public TFModFortRisePickupBlackHoleModule()
     {
       Instance = this;
-      Logger.Init("TFModFortRisePickupBlackHoleLOG");
+      //Logger.Init("TFModFortRisePickupBlackHoleLOG");
     }
 
     public override void Load()

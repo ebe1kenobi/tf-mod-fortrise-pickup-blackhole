@@ -15,7 +15,10 @@ namespace TFModFortRisePickupBlackHole
     private Counter portal;
     private Vector2 position;
     private Sprite<int> sprite;
+    //private Sprite<int> output;
     bool done = false;
+    private Vector2 teleportPosition;
+    private bool outputFound = false;
 
     public BlackHolePickup(Vector2 position, Vector2 targetPosition, Pickups pickupType)
         : base(position, targetPosition)
@@ -29,10 +32,40 @@ namespace TFModFortRisePickupBlackHole
       this.Tag(GameTags.PlayerCollectible);
       this.lifeCounter = new Counter();
       this.lifeCounter.Set(300);
+
     }
     public override void Update()
     {
       base.Update();
+
+
+      if (!outputFound && !TFModFortRisePickupBlackHoleModule.Settings.random)
+      {
+        outputFound = true;
+        Vector2 offset = Vector2.Zero;
+        float width = 16f;
+        float height = 24f;
+        int attempts = 0;
+        do
+        {
+          teleportPosition = FindSafePosition(width, height);
+          // Ajuster la position en fonction de l'offset du collider
+          Vector2 testPos = teleportPosition - offset;
+          if (!IsSolidAt(testPos, width, height))
+          {
+            break;
+          }
+          attempts++;
+        } while (attempts < 50);
+
+        // Create portal effects and teleport
+        Sprite<int> destSprite = TFGame.SpriteData.GetSpriteInt("SpawnPortal");
+        Entity destPortal = new Entity(teleportPosition);
+        destPortal.Add(destSprite);
+        destSprite.Play(0, false);
+        Level.Add(destPortal);
+      }
+
       if (this.Collidable)
       {
         this.sprite.Scale.X = 2f + 0.05f * this.sine.ValueOverTwo;
@@ -143,12 +176,12 @@ namespace TFModFortRisePickupBlackHole
       Entity testEntity = new Entity(position);
       testEntity.Collider = testHitbox;
 
-
       // Vérifier les collisions avec les solides
       foreach (Entity solid in base.Level[GameTags.Solid])
       {
         if (solid.Collider != null && testEntity.CollideCheck(solid))
         {
+
           return true;
         }
       }
@@ -165,6 +198,11 @@ namespace TFModFortRisePickupBlackHole
 
     private void TeleportEntity(Entity entity)
     {
+      if (!TFModFortRisePickupBlackHoleModule.Settings.random) {
+        // Teleport the entity
+        entity.Position = teleportPosition;
+        return;
+      }
       // Obtenir la taille exacte de l'entité et son offset de collider
       float width = 16f;
       float height = 24f;

@@ -10,12 +10,14 @@ namespace TFModFortRisePickupBlackHole
     {
       On.TowerFall.Session.StartGame += StartGame_patch;
       On.TowerFall.Session.GotoNextRound += GotoNextRound_patch;
+      On.TowerFall.Session.StartRound += StartRound_patch;
     }
 
     internal static void Unload()
     {
       On.TowerFall.Session.StartGame -= StartGame_patch;
       On.TowerFall.Session.GotoNextRound -= GotoNextRound_patch;
+      On.TowerFall.Session.StartRound -= StartRound_patch;
     }
     public MySession()
     {
@@ -24,6 +26,19 @@ namespace TFModFortRisePickupBlackHole
     public static void StartGame_patch(On.TowerFall.Session.orig_StartGame orig, global::TowerFall.Session self)
     {
       if (TFModFortRisePickupBlackHoleModule.Settings.periodicity == TFModFortRisePickupBlackHoleSettings.OncePerMatch)
+      {
+        NbBlackHolePickupActivated = 0;
+      }
+      orig(self);
+    }
+    
+    public static void StartRound_patch(On.TowerFall.Session.orig_StartRound orig, global::TowerFall.Session self)
+    {
+      if (TFModFortRisePickupBlackHoleModule.Settings.periodicity == TFModFortRisePickupBlackHoleSettings.OncePerRound)
+      {
+        NbBlackHolePickupActivated = 0;
+      }
+      if (TFModFortRisePickupBlackHoleModule.Settings.periodicity == TFModFortRisePickupBlackHoleSettings.Test)
       {
         NbBlackHolePickupActivated = 0;
       }

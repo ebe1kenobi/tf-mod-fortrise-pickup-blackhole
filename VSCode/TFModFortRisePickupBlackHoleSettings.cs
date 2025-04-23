@@ -12,5 +12,8 @@ namespace TFModFortRiseAiExample
     public const int Test = 2;
     [SettingsOptions("OncePerMatch", "OncePerRound", "Test")]
     public int periodicity = 0;
+    
+    [SettingsName("Random teleportation")]
+    public bool random = false;
   }
 }
