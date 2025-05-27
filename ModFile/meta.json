@@ -1,6 +1,6 @@
 {
 	"name": "BlackHole",
-	"version": "0.0.1",
+	"version": "0.0.3",
 	"author": "ebe1.kenobi",
 	"description": "BlackHole",
 	"dll": "TFModFortRisePickupBlackHole.dll"

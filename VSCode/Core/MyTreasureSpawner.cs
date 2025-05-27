@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using TowerFall;
 using MonoMod.Utils;
-using TFModFortRiseAiExample;
 
 namespace TFModFortRisePickupBlackHole
 {

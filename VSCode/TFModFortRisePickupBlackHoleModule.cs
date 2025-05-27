@@ -1,6 +1,5 @@
 ﻿using System;
 using FortRise;
-using TFModFortRiseAiExample;
 using TowerFall;
 using Monocle;
 

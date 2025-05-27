@@ -24,7 +24,10 @@ namespace TFModFortRisePickupBlackHole
         : base(position, targetPosition)
     {
       this.position = position;
-      base.Collider = new WrapHitbox(ATTRACTION_RADIUS * 2, ATTRACTION_RADIUS * 2, -ATTRACTION_RADIUS, -ATTRACTION_RADIUS);
+      base.Collider = new WrapHitbox(TFModFortRisePickupBlackHoleModule.Settings.attractionRadius * 2, 
+                                      TFModFortRisePickupBlackHoleModule.Settings.attractionRadius * 2, 
+                                      -TFModFortRisePickupBlackHoleModule.Settings.attractionRadius, 
+                                      -TFModFortRisePickupBlackHoleModule.Settings.attractionRadius);
       this.sprite = TFGame.SpriteData.GetSpriteInt("SpawnPortal");
       this.sprite.Play(0, false);
       this.sprite.CenterOrigin();
@@ -98,10 +101,11 @@ namespace TFModFortRisePickupBlackHole
       Vector2 direction = this.Position - entity.Position;
       float distance = direction.Length();
 
-      if (distance < ATTRACTION_RADIUS)
+      if (distance < TFModFortRisePickupBlackHoleModule.Settings.attractionRadius)
       {
         // Calculer la force d'attraction
-        float force = (1 - (distance / ATTRACTION_RADIUS)) * ATTRACTION_FORCE;
+        float force = (1 - (distance / TFModFortRisePickupBlackHoleModule.Settings.attractionRadius)) 
+                      * TFModFortRisePickupBlackHoleModule.Settings.attractionForce;
         direction.Normalize();
 
         // Appliquer la force
@@ -117,7 +121,7 @@ namespace TFModFortRisePickupBlackHole
         }
 
         // Téléporter si assez proche
-        if (distance < TELEPORT_RADIUS)
+        if (distance < TFModFortRisePickupBlackHoleModule.Settings.teleportRadius)
         {
           TeleportEntity(entity);
         }

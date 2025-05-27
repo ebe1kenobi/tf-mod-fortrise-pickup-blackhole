@@ -1,6 +1,4 @@
-﻿using TFModFortRiseAiExample;
-
-namespace TFModFortRisePickupBlackHole
+﻿namespace TFModFortRisePickupBlackHole
 {
   public class MySession
   {
