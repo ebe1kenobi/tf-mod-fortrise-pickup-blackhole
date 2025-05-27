@@ -1,41 +1,13 @@
-Skeleton of a project to Create a Mod AI for the mod "Loader AI" https://github.com/ebe1kenobi/tf-mod-fortrise-loader-ai
+New pickup. A black hole will appear from a treasure chest. The attraction will be strongest near the black hole. You will be teleported to the exit with the same direction and speed.
+![compil4](https://github.com/user-attachments/assets/ee5d1adf-068e-40b6-bc7c-eb223bd76a11)
 
-You just need to implements the method **AIExAgent.Move();**. All the Level information are in the property "TowerFall.Level level" in parent class Agent. Exemple in https://github.com/ebe1kenobi/tf-mod-fortrise-ai-simple
+The exit of the blackhole can be persistent or random (see settings)
 
-**requirements**: mod "Loader AI" https://github.com/ebe1kenobi/tf-mod-fortrise-loader-ai
+The periodicity of apparition of the pickup can be set in the settings.
 
-```C#
-using TowerFall;
-using System;
+![image](https://github.com/user-attachments/assets/4b4ac34a-2401-4f5e-8c74-d7643f5ad5ff)
 
-namespace TFModFortRiseAiExample
-{
-  public class AIExAgent : TFModFortRiseLoaderAI.Agent
-  {
 
-    public AIExAgent(int index, String type, PlayerInput input) : base(index, type, input)
-    {
-    }
+TODO : the arrow seem to disappear threw the blackhole.
 
-    protected override void Move()
-    {
-      this.input.inputState = new InputState();
-      this.input.inputState.AimAxis.X = 0;
-      this.input.inputState.MoveX = 0;
-      this.input.inputState.AimAxis.Y = 0;
-      this.input.inputState.MoveY = 0;
-
-      if (shoot.Count == 0 && 0 == random.Next(0, 19))
-      //if (0 == random.Next(0, 19))
-      {
-        this.input.inputState.JumpCheck = true;
-        this.input.inputState.JumpPressed = !this.input.prevInputState.JumpCheck;
-      }
-
-      this.input.prevInputState = this.input.GetCopy(this.input.inputState);
-
-    }
-  }
-}
-
-```
+TODO: game can crash sometime...
